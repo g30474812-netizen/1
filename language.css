@@ -1,0 +1,43 @@
+@media (max-width: 520px) {
+  html[lang="ky"] .product-meta {
+    flex-wrap: wrap;
+  }
+
+  html[lang="ky"] .product-meta button {
+    flex: 1 1 112px;
+    min-height: 44px;
+    max-width: 100%;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+    text-align: center;
+    white-space: normal;
+  }
+}
+
+.language-flag,
+.language-option-flag {
+  display: inline-flex;
+  width: 20px;
+  height: 14px;
+  flex: 0 0 20px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 3px;
+  line-height: 0;
+}
+
+.language-flag-svg {
+  display: block;
+  width: 20px;
+  height: 14px;
+}
+
+.language-flag {
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.16));
+}
+
+.language-option > .language-option-flag {
+  width: 20px;
+  height: 14px;
+}

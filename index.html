@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="ky">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FIREBITE KG — Street Food</title>
+    <meta
+      name="description"
+      content="FIREBITE KG — Кыргызстандын күчтүү street food жайы: бургерлер, кытырак тоок, фри, суусундуктар жана жаңы комбо."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans:wght@400;500;600;700;800&family=Noto+Serif+Display:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="language.css" />
+    <script src="language.js?v=4" defer></script>
+    <script src="notifications.js" defer></script>x 
+    <script src="cart.js" defer></script>
+    <script src="script.js" defer></script>
+    <script src="ratings.js" defer></script>
+    <script src="auth.js" defer></script>
+  </head>
+  <body>
+    <div class="toast-region" id="toast-region" aria-label="Уведомления" data-i18n-aria="toast.region"></div>
+    <div class="ambient-glows" aria-hidden="true">
+      <span class="glow glow--orange"></span>
+      <span class="glow glow--amber"></span>
+      <span class="glow glow--copper"></span>
+    </div>
+    <div class="scroll-progress" aria-hidden="true"><span></span></div>
+    <div class="page-shell">
+      <input class="cart-toggle" type="checkbox" id="cart-toggle" aria-label="Открыть корзину" data-i18n-aria="cart.open" />
+      <header class="topbar container">
+        <div class="logo-wrap">
+          <div class="logo-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false"><path class="logo-flame" d="M13.2 2.2c.5 3.1-.9 4.7-2.6 6.4-.7-1.2-1.5-2.2-2.7-2.8.2 2.8-2.3 4.5-2.3 8.1 0 4.2 2.9 7.2 6.9 7.2s7.1-3 7.1-7.1c0-3.7-2-6.4-5.1-8.8.2 1.8-.1 3.1-1.1 4.4-.4-2.2.2-4.8-.2-7.4Z"/><path class="logo-flame-core" d="M12.8 11.1c1.7 1.7 2.5 3.1 2.5 4.7 0 1.8-1.2 3.1-3 3.1s-3-1.3-3-3.1c0-1.2.8-2.2 1.8-3.4.3.6.7 1.1 1.2 1.6.4-.9.5-1.8.5-2.9Z"/></svg>
+          </div>
+          <span class="brand-name">FIREBITE <b class="brand-suffix">KG</b></span>
+          <span class="flag" aria-label="Кыргызстан" data-i18n-aria="country.name"></span>
+        </div>
+
+        <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" aria-label="Открыть главное меню" data-i18n-aria="nav.menuOpen">
+          <span class="menu-toggle-copy" data-i18n="nav.menuButton">MENU</span>
+          <span class="menu-toggle-icon" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </button>
+
+        <nav class="main-nav" id="site-navigation" aria-label="Главная навигация" data-i18n-aria="nav.label">
+          <a href="#home" data-i18n="nav.home">Главная</a>
+          <a href="#menu" data-i18n="nav.menu">Меню</a>
+          <a href="#about" data-i18n="nav.about">О нас</a>
+          <a href="#offers" data-i18n="nav.offers">Акции</a>
+
+          <a href="#contact" data-i18n="nav.contact">Контакты</a>
+        </nav>
+
+        <div class="nav-actions">
+          <button class="btn btn-ghost auth-trigger" id="auth-trigger" type="button" aria-haspopup="dialog" aria-controls="auth-modal" data-i18n="auth.login">Войти</button>
+          <div class="language-switcher" id="language-switcher">
+            <button class="language-trigger" id="language-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="language-menu" aria-label="Тил / Язык">
+              <span class="language-flag" data-language-flag aria-hidden="true"><svg class="language-flag-svg" viewBox="0 0 20 14" aria-hidden="true" focusable="false"><rect width="20" height="14" rx="2" fill="#d52b1e"/><circle cx="10" cy="7" r="3.9" fill="#ffd34e"/><g fill="none" stroke="#d52b1e" stroke-width=".6" stroke-linecap="round"><circle cx="10" cy="7" r="1.45"/><path d="M8.55 5.55 10 7l1.45-1.45M8.55 8.45 10 7l1.45 1.45M10 5.55v2.9M8.55 7h2.9"/></g></svg></span>
+              <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="m5 7.5 5 5 5-5" /></svg>
+            </button>
+            <div class="language-menu" id="language-menu" role="listbox" aria-label="Тил / Язык" hidden>
+              <button class="language-option" type="button" role="option" data-language-option="ky" aria-selected="true">
+                <span class="language-option-flag" aria-hidden="true"><svg class="language-flag-svg" viewBox="0 0 20 14" aria-hidden="true" focusable="false"><rect width="20" height="14" rx="2" fill="#d52b1e"/><circle cx="10" cy="7" r="3.9" fill="#ffd34e"/><g fill="none" stroke="#d52b1e" stroke-width=".6" stroke-linecap="round"><circle cx="10" cy="7" r="1.45"/><path d="M8.55 5.55 10 7l1.45-1.45M8.55 8.45 10 7l1.45 1.45M10 5.55v2.9M8.55 7h2.9"/></g></svg></span><span>Кыргызча</span><span class="language-check" aria-hidden="true">✓</span>
+              </button>
+              <button class="language-option" type="button" role="option" data-language-option="ru" aria-selected="false">
+                <span class="language-option-flag" aria-hidden="true"><svg class="language-flag-svg" viewBox="0 0 20 14" aria-hidden="true" focusable="false"><rect width="20" height="14" rx="2" fill="#fff"/><path d="M0 4.67h20v4.66H0Z" fill="#2455a4"/><path d="M0 9.33h20V14H0Z" fill="#d52b1e"/></svg></span><span>Русский</span><span class="language-check" aria-hidden="true">✓</span>
+              </button>
+            </div>
+          </div>
+
+          <label class="cart-trigger" for="cart-toggle">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M3 4h2l2.1 10.1a2 2 0 0 0 2 1.6h8.7a2 2 0 0 0 1.9-1.4L22 8H6" />
+              <circle cx="10" cy="20" r="1.2" />
+              <circle cx="18" cy="20" r="1.2" />
+            </svg>
+            <span data-i18n="cart.title">Корзина</span>
+            <span class="cart-count" aria-label="0 товаров">0</span>
+          </label>
+          <button class="btn btn-primary" data-scroll-target="#menu" data-i18n="header.order">Заказать</button>
+        </div>
+      </header>
+
+      <div class="auth-overlay" id="auth-modal" hidden>
+        <section class="auth-dialog" role="dialog" aria-modal="true" aria-labelledby="auth-title" aria-describedby="auth-description" tabindex="-1">
+          <button class="auth-close" type="button" aria-label="Закрыть окно входа" data-i18n-aria="auth.close">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="m6 6 12 12M18 6 6 18" />
+            </svg>
+          </button>
+
+          <div class="auth-brand" aria-hidden="true">
+            <span class="auth-mark">F</span>
+            <span class="eyebrow">FIREBITE KG</span>
+          </div>
+          <h2 id="auth-title" data-i18n="auth.welcome">С возвращением</h2>
+          <p class="auth-description" id="auth-description" data-i18n="auth.description">Войдите, чтобы продолжить и оформить заказ.</p>
+
+          <form class="auth-form" id="auth-form" novalidate>
+            <label class="auth-field" for="auth-email">
+              <span data-i18n="auth.email">Электронная почта</span>
+              <input id="auth-email" name="email" type="email" autocomplete="username" inputmode="email" placeholder="name@example.com" data-i18n-placeholder="auth.emailPlaceholder" required aria-describedby="auth-email-error" />
+              <span class="auth-field-error" id="auth-email-error"></span>
+            </label>
+
+            <label class="auth-field" for="auth-password">
+              <span data-i18n="auth.password">Пароль</span>
+              <span class="auth-password-wrap">
+                <input id="auth-password" name="password" type="password" autocomplete="current-password" placeholder="Введите пароль" data-i18n-placeholder="auth.passwordPlaceholder" required aria-describedby="auth-password-error" />
+                <button class="auth-password-toggle" type="button" aria-label="Показать пароль" data-i18n-aria="auth.showPassword" aria-pressed="false">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="M2.5 12s3.3-6 9.5-6 9.5 6 9.5 6-3.3 6-9.5 6-9.5-6-9.5-6Z" />
+                    <circle cx="12" cy="12" r="2.5" />
+                  </svg>
+                </button>
+              </span>
+              <span class="auth-field-error" id="auth-password-error"></span>
+            </label>
+
+            <div class="auth-form-meta">
+              <span></span>
+              <button class="auth-forgot" type="button" data-i18n="auth.forgot">Забыли пароль?</button>
+            </div>
+
+            <p class="auth-message" id="auth-message" role="alert" aria-live="polite" hidden></p>
+            <button class="auth-submit" type="submit">
+              <span class="auth-submit-label" data-i18n="auth.login">Войти</span>
+              <span class="auth-spinner" aria-hidden="true"></span>
+            </button>
+          </form>
+
+          <div class="auth-success-view" id="auth-success" hidden>
+            <span class="auth-success-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false"><path d="m5 12 4.5 4.5L19 7" /></svg>
+            </span>
+            <p class="auth-success-copy"><span data-i18n="auth.successPrefix">Вы вошли как</span> <strong class="auth-user-name"></strong></p>
+            <div class="auth-success-actions">
+              <button class="auth-continue" type="button" data-i18n="auth.continue">Продолжить</button>
+              <button class="auth-continue auth-logout" type="button" data-i18n="auth.logout">Выйти</button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="cart-layer">
+        <label class="cart-backdrop" for="cart-toggle" aria-label="Закрыть корзину" data-i18n-aria="cart.close"></label>
+        <aside class="cart-panel" role="dialog" aria-modal="true" aria-labelledby="cart-title">
+          <div class="cart-panel-head">
+            <div>
+              <p class="eyebrow">FIREBITE KG</p>
+              <h2 id="cart-title"><span data-i18n="cart.title">Корзина</span> <span class="cart-title-count">(0)</span></h2>
+            </div>
+            <label class="cart-close" for="cart-toggle" aria-label="Закрыть корзину" data-i18n-aria="cart.close">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="m6 6 12 12M18 6 6 18" />
+              </svg>
+            </label>
+          </div>
+
+          <div class="cart-scroll">
+            <div class="cart-populated">
+              <div class="cart-items" aria-live="polite"></div>
+
+              <section class="cart-summary" aria-label="Итого" data-i18n-aria="cart.summary">
+                <div><span data-i18n="cart.subtotal">Промежуточная сумма</span><strong class="cart-subtotal">0 сом</strong></div>
+                <div><span data-i18n="cart.delivery">Доставка</span><strong data-i18n="cart.free">Бесплатно</strong></div>
+                <div class="cart-grand-total"><span data-i18n="cart.total">Итого</span><strong class="cart-total">0 сом</strong></div>
+                <button class="cart-order-button" type="button" data-i18n="cart.order">Заказать</button>
+                <button class="cart-clear-button" type="button" data-i18n="cart.clear">Очистить корзину</button>
+              </section>
+
+              <form class="checkout-form" novalidate>
+                <h3 data-i18n="checkout.title">Данные для доставки</h3>
+                <label><span data-i18n="checkout.name">Имя</span><input type="text" name="name" autocomplete="name" placeholder="Введите имя" data-i18n-placeholder="checkout.namePlaceholder" minlength="2" required /></label>
+                <label><span data-i18n="checkout.phone">Телефон</span><input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="+996 ___ ___ ___" data-i18n-placeholder="checkout.phonePlaceholder" required /></label>
+                <label><span data-i18n="checkout.address">Адрес</span><input type="text" name="address" autocomplete="street-address" placeholder="Улица, дом, квартира" data-i18n-placeholder="checkout.addressPlaceholder" minlength="5" required /></label>
+                <label><span data-i18n="checkout.comment">Комментарий</span><textarea name="comment" rows="2" placeholder="Дополнительная информация" data-i18n-placeholder="checkout.commentPlaceholder"></textarea></label>
+                <button class="cart-confirm-button" type="submit" data-i18n="checkout.submit">Подтвердить заказ</button>
+                <p class="checkout-status" role="status" aria-live="polite" hidden></p>
+              </form>
+            </div>
+
+            <section class="cart-empty-state" aria-labelledby="cart-empty-title">
+              <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+                <path d="M5 8h4l4.3 21h22.1L41 15H12" />
+                <circle cx="18" cy="38" r="2.5" />
+                <circle cx="34" cy="38" r="2.5" />
+              </svg>
+              <h3 id="cart-empty-title" data-i18n="cart.empty">Корзина пуста</h3>
+              <p data-i18n="cart.emptyDescription">Добавьте блюда из меню, чтобы оформить заказ.</p>
+              <a class="cart-menu-button" href="#menu" data-i18n="cart.menu">Перейти в меню</a>
+            </section>
+          </div>
+        </aside>
+      </div>
+
+      <main>
+        <section class="hero container" id="home">
+          <div class="hero-copy">
+            <div class="headline-badge" data-hero-step="0">
+              <span class="dot"></span>
+              <span data-i18n="hero.badge">Свежо • Быстро • Вкусно</span>
+            </div>
+
+            <h1 aria-label="Вкус, который сносит крышу." data-i18n-aria="hero.titleAria">
+              <span class="hero-title-line"><span data-hero-step="1" data-i18n="hero.titleLine1">Вкус, который</span></span>
+              <span class="hero-title-line hero-title-line--accent"><span data-hero-step="2" data-i18n="hero.titleLine2">сносит крышу.</span></span>
+            </h1>
+
+            <p data-hero-step="3" data-i18n="hero.description">
+              Бургеры с идеальной прожаркой, хрустящий фритюр, сочные сэндвичи,
+              вкусные соусы и фирменные напитки — всё готово, чтобы твой голод
+              исчез за минуту.
+            </p>
+
+            <div class="hero-actions" data-hero-step="4">
+              <button class="btn btn-primary" data-scroll-target="#menu" data-i18n="hero.menuButton">Смотреть меню</button>
+              <button class="btn btn-secondary" data-scroll-target="#offers" data-i18n="hero.offersButton">Акции</button>
+            </div>
+
+            <div class="stats-row" data-hero-step="5">
+              <div>
+                <strong data-count="5" data-suffix="k+">5k+</strong>
+                <span data-i18n="hero.happyCustomers">довольных клиентов</span>
+              </div>
+              <div>
+                <strong data-count="5" data-suffix="/5">5/5</strong>
+                <span data-i18n="hero.averageRating">высокий рейтинг</span>
+              </div>
+              <div>
+                <strong data-count="30" data-suffix=" мин" data-suffix-ky=" мүн" data-suffix-ru=" мин">30 мин</strong>
+                <span data-i18n="hero.delivery">доставка</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-visual" aria-label="Главное блюдо" data-i18n-aria="hero.visualAria">
+            <div class="floating-card card-small card-one" data-float-depth="0.45">
+              <span data-i18n="hero.comboLabel">🔥 Эки сүйүктүү тамак</span>
+              <strong data-i18n="hero.comboPrice">Болгону 1599 сом</strong>
+            </div>
+
+            <div class="burger-tilt-wrap" data-burger-tilt>
+              <div class="burger-visual is-3d-loading">
+                <img class="realistic-burger-image" src="assets/img/photo-1568901346375-23c9450c58cd.webp" width="1100" height="1100" alt="Ширелүү реалисттик бургер" data-i18n-alt="image.burger" />
+                <canvas class="burger-3d-canvas" aria-label="Вращающаяся 3D-модель бургера" data-i18n-aria="hero.burgerAria"></canvas>
+                <div class="burger-fallback">
+                  <div class="burger-shadow"></div>
+                  <div class="burger-layer bun-top">
+                    <i class="seed"></i><i class="seed"></i><i class="seed"></i><i class="seed"></i><i class="seed"></i>
+                    <i class="seed"></i><i class="seed"></i><i class="seed"></i><i class="seed"></i><i class="seed"></i>
+                  </div>
+                  <div class="burger-layer lettuce"></div>
+                  <div class="burger-layer tomato"></div>
+                  <div class="burger-layer cheese"></div>
+                  <div class="burger-layer patty"></div>
+                  <div class="burger-layer bun-bottom"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="floating-card card-small card-two" data-float-depth="0.8">
+              <span data-i18n="hero.bestSeller">⭐ Лидер продаж</span>
+              <strong>Smash Burger</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="popular container" id="menu">
+          <div class="section-heading" data-reveal="heading">
+            <div>
+              <p class="eyebrow" data-i18n="menu.eyebrow">Популярно</p>
+              <h2 data-i18n="menu.title">Любимые блюда</h2>
+            </div>
+            <div class="section-actions">
+              <a href="#menu" class="text-link" data-i18n="menu.all">Все блюда</a>
+              <button class="go-to-cart" type="button" data-i18n="menu.goToCart">Перейти в корзину</button>
+            </div>
+          </div>
+
+          <form class="menu-search" id="menu-search-form" role="search">
+            <label class="menu-search-field" for="menu-search-input">
+              <span class="menu-search-label" data-i18n="search.label">Поиск по меню</span>
+              <svg class="menu-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
+              <input id="menu-search-input" name="q" type="search" autocomplete="off" spellcheck="false" placeholder="Найти блюдо или напиток..." data-i18n-placeholder="search.placeholder" aria-label="Поиск по меню" data-i18n-aria="search.label" />
+              <button class="menu-search-clear" type="button" aria-label="Очистить поиск" data-i18n-aria="search.clear" hidden>×</button>
+            </label>
+          </form>
+          <p class="search-empty" data-search-empty data-i18n="search.empty" hidden>Ничего не найдено</p>
+
+          <div class="product-grid">
+            <div class="menu-category-heading menu-category-heading--food">
+              <span class="menu-category-number">01</span>
+              <h3 data-i18n="menu.foodCategory">Блюда</h3>
+            </div>
+
+            <article class="product-card" data-reveal="card">
+              <div class="product-image image-one"></div>
+              <div class="product-body">
+                <div class="card-topline">
+                  <span class="tag" data-i18n="product.deluxe.tag">Классика</span>
+                  <button class="rating" type="button" data-rating-trigger data-product-id="deluxe-burger" data-base-rating="4.9" data-base-count="127" aria-label="Оценить товар" data-i18n-aria="rating.open">★ 4.9</button>
+                </div>
+                <h3 data-i18n="product.deluxe.name">Гамбургер Deluxe</h3>
+                <p data-i18n="product.deluxe.description">Рецепт: две говяжьи котлеты на гриле, двойной чеддер, луковый джем и свежий салат в мягкой булочке.</p>
+                <div class="product-meta">
+                  <strong>790 сом</strong>
+                  <button class="add-to-cart" data-product-id="deluxe-burger" type="button" data-i18n="product.add">Добавить в корзину</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card" data-reveal="card">
+              <div class="product-image image-two"></div>
+              <div class="product-body">
+                <div class="card-topline">
+                  <span class="tag" data-i18n="product.fire.tag">Острый</span>
+                  <button class="rating" type="button" data-rating-trigger data-product-id="fire-chicken" data-base-rating="4.8" data-base-count="94" aria-label="Оценить товар" data-i18n-aria="rating.open">★ 4.8</button>
+                </div>
+                <h3 data-i18n="product.fire.name">Fire Chicken</h3>
+                <p data-i18n="product.fire.description">Рецепт: хрустящее куриное филе, острый соус, свежий огурец и капуста в тёплой булочке.</p>
+                <div class="product-meta">
+                  <strong>420 сом</strong>
+                  <button class="add-to-cart" data-product-id="fire-chicken" type="button" data-i18n="product.add">Добавить в корзину</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card" data-reveal="card">
+              <div class="product-image image-three"></div>
+              <div class="product-body">
+                <div class="card-topline">
+                  <span class="tag" data-i18n="product.hearty.tag">Сытный</span>
+                  <button class="rating" type="button" data-rating-trigger data-product-id="loaded-fries" data-base-rating="5.0" data-base-count="63" aria-label="Оценить товар" data-i18n-aria="rating.open">★ 5.0</button>
+                </div>
+                <h3 data-i18n="product.loaded.name">Loaded Fries</h3>
+                <p data-i18n="product.loaded.description">Рецепт: золотистый картофель фри, горячий сырный соус, хрустящий лук и свежая зелень.</p>
+                <div class="product-meta">
+                  <strong>320 сом</strong>
+                  <button class="add-to-cart" data-product-id="loaded-fries" type="button" data-i18n="product.add">Добавить в корзину</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card" data-reveal="card">
+              <div class="product-image image-four"></div>
+              <div class="product-body">
+                <div class="card-topline">
+                  <span class="tag" data-i18n="product.crispy.tag">Хрустящий</span>
+                  <button class="rating" type="button" data-rating-trigger data-product-id="french-fries" data-base-rating="4.9" data-base-count="112" aria-label="Оценить товар" data-i18n-aria="rating.open">★ 4.9</button>
+                </div>
+                <h3 data-i18n="product.fries.name">Картофель фри</h3>
+                <p data-i18n="product.fries.description">Рецепт: картофель фри обжариваем до хрустящей корочки, солим и подаём с фирменным соусом.</p>
+                <div class="product-meta">
+                  <strong>220 сом</strong>
+                  <button class="add-to-cart" data-product-id="french-fries" type="button" data-i18n="product.add">Добавить в корзину</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card" data-reveal="card">
+              <div class="product-image image-five"></div>
+              <div class="product-body">
+                <div class="card-topline">
+                  <span class="tag" data-i18n="product.tender.tag">Нежный</span>
+                  <button class="rating" type="button" data-rating-trigger data-product-id="chicken-nuggets" data-base-rating="4.8" data-base-count="88" aria-label="Оценить товар" data-i18n-aria="rating.open">★ 4.8</button>
+                </div>
+                <h3 data-i18n="product.nuggets.name">Куриные наггетсы</h3>
+                <p data-i18n="product.nuggets.description">Рецепт: сочные кусочки курицы в золотистой панировке, обжаренные и поданные с соусом барбекю.</p>
+                <div class="product-meta">
+                  <strong>350 сом</strong>
+                  <button class="add-to-cart" data-product-id="chicken-nuggets" type="button" data-i18n="product.add">Добавить в корзину</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card product-card-featured" data-reveal="card">
+              <div class="product-image image-six"></div>
+              <div class="product-body">
+                <div class="card-topline">
+                  <span class="tag" data-i18n="product.hearty.tag">Сытный</span>
+                  <button class="rating" type="button" data-rating-trigger data-product-id="classic-hot-dog" data-base-rating="4.7" data-base-count="76" aria-label="Оценить товар" data-i18n-aria="rating.open">★ 4.7</button>
+                </div>
+                <h3 data-i18n="product.hotdog.name">Хот-дог Classic</h3>
+                <p data-i18n="product.hotdog.description">Рецепт: сосиска на гриле, свежие овощи и пикантный фирменный соус в мягкой булочке.</p>
+                <div class="product-meta">
+                  <strong>390 сом</strong>
+                  <button class="add-to-cart" data-product-id="classic-hot-dog" type="button" data-i18n="product.add">Добавить в корзину</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card" data-reveal="card">
+              <div class="product-image image-one"></div>
+              <div class="product-body">
+                <div class="card-topline">
+                  <span class="tag" data-i18n="product.bbqMelt.tag">Фирменный</span>
+                  <button class="rating" type="button" data-rating-trigger data-product-id="bbq-melt-burger" data-base-rating="0" data-base-count="0" aria-label="Оценить товар" data-i18n-aria="rating.open">★</button>
+                </div>
+                <h3 data-i18n="product.bbqMelt.name">BBQ Melt Burger</h3>
+                <p data-i18n="product.bbqMelt.description">Рецепт: сочная котлета, копчёный BBQ-соус, расплавленный чеддер и хрустящие луковые кольца.</p>
+                <div class="product-meta">
+                  <strong>560 сом</strong>
+                  <button class="add-to-cart" data-product-id="bbq-melt-burger" type="button" data-i18n="product.add">Добавить в корзину</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card" data-reveal="card">
+              <div class="product-image image-seven"></div>
+              <div class="product-body">
+                <div class="card-topline">
+                  <span class="tag" data-i18n="product.wings.tag">Хрустящее</span>
+                  <button class="rating" type="button" data-rating-trigger data-product-id="crispy-wings" data-base-rating="0" data-base-count="0" aria-label="Оценить товар" data-i18n-aria="rating.open">★</button>
+                </div>
+                <h3 data-i18n="product.wings.name">Куриные крылышки</h3>
+                <p data-i18n="product.wings.description">Рецепт: куриные крылышки запекаем до золотистой корочки и покрываем пикантным фирменным соусом.</p>
+                <div class="product-meta">
+                  <strong>399 сом</strong>
+                  <button class="add-to-cart" data-product-id="crispy-wings" type="button" data-i18n="product.add">Добавить в корзину</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card product-card--drink" data-reveal="card">
+              <div class="product-image image-eight"></div>
+              <div class="product-body">
+                <div class="card-topline">
+                  <span class="tag" data-i18n="product.shake.tag">Десерт</span>
+                  <button class="rating" type="button" data-rating-trigger data-product-id="caramel-shake" data-base-rating="0" data-base-count="0" aria-label="Оценить товар" data-i18n-aria="rating.open">★</button>
+                </div>
+                <h3 data-i18n="product.shake.name">Карамельный шейк</h3>
+                <p data-i18n="product.shake.description">Рецепт: холодный молочный коктейль взбиваем до густоты и дополняем мягким карамельным вкусом.</p>
+                <div class="product-meta">
+                  <strong>290 сом</strong>
+                  <button class="add-to-cart" data-product-id="caramel-shake" type="button" data-i18n="product.add">Добавить в корзину</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card" data-reveal="card">
+              <div class="product-image image-nine"></div>
+              <div class="product-body">
+                <div class="card-topline">
+                  <span class="tag" data-i18n="product.pizza.tag">Новинка</span>
+                  <button class="rating" type="button" data-rating-trigger data-product-id="pepperoni-pizza" data-base-rating="0" data-base-count="0" aria-label="Оценить товар" data-i18n-aria="rating.open">★</button>
+                </div>
+                <h3 data-i18n="product.pizza.name">Пицца Пепперони</h3>
+                <p data-i18n="product.pizza.description">Рецепт: тонкое тесто, томатный соус, расплавленный сыр и пикантная пепперони — всё запекаем до румяной корочки.</p>
+                <div class="product-meta">
+                  <strong>520 сом</strong>
+                  <button class="add-to-cart" data-product-id="pepperoni-pizza" type="button" data-i18n="product.add">Добавить в корзину</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card" data-reveal="card">
+              <div class="product-image image-ten"></div>
+              <div class="product-body">
+                <div class="card-topline">
+                  <span class="tag" data-i18n="product.wrap.tag">Сытное</span>
+                  <button class="rating" type="button" data-rating-trigger data-product-id="chicken-crunch-wrap" data-base-rating="0" data-base-count="0" aria-label="Оценить товар" data-i18n-aria="rating.open">★</button>
+                </div>
+                <h3 data-i18n="product.wrap.name">Куриный ролл</h3>
+                <p data-i18n="product.wrap.description">Рецепт: хрустящую курицу, свежие овощи и сливочный соус заворачиваем в тёплую лепёшку.</p>
+                <div class="product-meta">
+                  <strong>390 сом</strong>
+                  <button class="add-to-cart" data-product-id="chicken-crunch-wrap" type="button" data-i18n="product.add">Добавить в корзину</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card" data-reveal="card">
+              <div class="product-image image-eleven"></div>
+              <div class="product-body">
+                <div class="card-topline">
+                  <span class="tag" data-i18n="product.sandwich.tag">Новинка</span>
+                  <button class="rating" type="button" data-rating-trigger data-product-id="grilled-chicken-sandwich" data-base-rating="5.0" data-base-count="127" aria-label="Оценить товар" data-i18n-aria="rating.open">★</button>
+                </div>
+                <h3 data-i18n="product.sandwich.name">Куриный сэндвич</h3>
+                <p data-i18n="product.sandwich.description">Рецепт: поджаренный хлеб, курица, расплавленный сыр, свежие овощи и сливочный соус.</p>
+                <div class="product-meta">
+                  <strong>430 сом</strong>
+                  <button class="add-to-cart" data-product-id="grilled-chicken-sandwich" type="button" data-i18n="product.add">Добавить в корзину</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card" data-reveal="card">
+              <div class="product-image image-twelve"></div>
+              <div class="product-body">
+                <div class="card-topline">
+                  <span class="tag" data-i18n="product.taco.tag">Мексиканское</span>
+                  <button class="rating" type="button" data-rating-trigger data-product-id="beef-taco" data-base-rating="0" data-base-count="0" aria-label="Оценить товар" data-i18n-aria="rating.open">★</button>
+                </div>
+                <h3 data-i18n="product.taco.name">Тако с говядиной</h3>
+                <p data-i18n="product.taco.description">Рецепт: пряную говядину, свежие овощи и сальсу собираем в мягкой тортилье.</p>
+                <div class="product-meta">
+                  <strong>290 сом</strong>
+                  <button class="add-to-cart" data-product-id="beef-taco" type="button" data-i18n="product.add">Добавить в корзину</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card" data-reveal="card">
+              <div class="product-image image-thirteen"></div>
+              <div class="product-body">
+                <div class="card-topline">
+                  <span class="tag" data-i18n="product.onionRings.tag">Закуска</span>
+                  <button class="rating" type="button" data-rating-trigger data-product-id="crispy-onion-rings" data-base-rating="0" data-base-count="0" aria-label="Оценить товар" data-i18n-aria="rating.open">★</button>
+                </div>
+                <h3 data-i18n="product.onionRings.name">Луковые кольца</h3>
+                <p data-i18n="product.onionRings.description">Рецепт: луковые кольца покрываем хрустящей панировкой, обжариваем до золота и подаём с соусом.</p>
+                <div class="product-meta">
+                  <strong>240 сом</strong>
+                  <button class="add-to-cart" data-product-id="crispy-onion-rings" type="button" data-i18n="product.add">Добавить в корзину</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card" data-reveal="card">
+              <div class="product-image image-fourteen"></div>
+              <div class="product-body">
+                <div class="card-topline">
+                  <span class="tag" data-i18n="product.brownie.tag">Десерт</span>
+                  <button class="rating" type="button" data-rating-trigger data-product-id="chocolate-brownie" data-base-rating="0" data-base-count="0" aria-label="Оценить товар" data-i18n-aria="rating.open">★</button>
+                </div>
+                <h3 data-i18n="product.brownie.name">Шоколадный брауни</h3>
+                <p data-i18n="product.brownie.description">Рецепт: мягкий шоколадный брауни с насыщенным какао-вкусом и плотной, нежной текстурой.</p>
+                <div class="product-meta">
+                  <strong>260 сом</strong>
+                  <button class="add-to-cart" data-product-id="chocolate-brownie" type="button" data-i18n="product.add">Добавить в корзину</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card product-card-featured product-card--drink" data-reveal="card">
+              <div class="product-image image-fifteen"></div>
+              <div class="product-body">
+                <div class="card-topline">
+                  <span class="tag" data-i18n="product.mangoSmoothie.tag">Фруктовый</span>
+                  <button class="rating" type="button" data-rating-trigger data-product-id="mango-smoothie" data-base-rating="5.0" data-base-count="136" aria-label="Оценить товар" data-i18n-aria="rating.open">★ 5.0</button>
+                </div>
+                <h3 data-i18n="product.mangoSmoothie.name">Манго смузи</h3>
+                <p data-i18n="product.mangoSmoothie.description">Рецепт: спелое манго, йогурт и лёд взбиваем до густой однородной текстуры.</p>
+                <div class="product-meta">
+                  <strong>340 сом</strong>
+                  <button class="add-to-cart" data-product-id="mango-smoothie" type="button" data-i18n="product.add">Добавить в корзину</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card product-card-featured product-card--drink" data-reveal="card">
+              <div class="product-image image-sixteen"></div>
+              <div class="product-body">
+                <div class="card-topline">
+                  <span class="tag" data-i18n="product.icedLatte.tag">Кофейный</span>
+                  <button class="rating" type="button" data-rating-trigger data-product-id="iced-latte" data-base-rating="5.0" data-base-count="118" aria-label="Оценить товар" data-i18n-aria="rating.open">★ 5.0</button>
+                </div>
+                <h3 data-i18n="product.icedLatte.name">Айс латте</h3>
+                <p data-i18n="product.icedLatte.description">Рецепт: двойной эспрессо смешиваем с холодным молоком и льдом — мягко, бодро и без лишней сладости.</p>
+                <div class="product-meta">
+                  <strong>290 сом</strong>
+                  <button class="add-to-cart" data-product-id="iced-latte" type="button" data-i18n="product.add">Добавить в корзину</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card" data-reveal="card">
+              <div class="product-image image-seventeen"></div>
+              <div class="product-body">
+                <div class="card-topline">
+                  <span class="tag" data-i18n="product.quesadilla.tag">Мексиканское</span>
+                  <button class="rating" type="button" data-rating-trigger data-product-id="chicken-quesadilla" data-base-rating="0" data-base-count="0" aria-label="Оценить товар" data-i18n-aria="rating.open">★</button>
+                </div>
+                <h3 data-i18n="product.quesadilla.name">Кесадилья с курицей</h3>
+                <p data-i18n="product.quesadilla.description">Рецепт: курица, сыр и овощи внутри тортильи; обжариваем с двух сторон до золотистой корочки.</p>
+                <div class="product-meta">
+                  <strong>420 сом</strong>
+                  <button class="add-to-cart" data-product-id="chicken-quesadilla" type="button" data-i18n="product.add">Добавить в корзину</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card" data-reveal="card">
+              <div class="product-image image-eighteen"></div>
+              <div class="product-body">
+                <div class="card-topline">
+                  <span class="tag" data-i18n="product.cheeseSticks.tag">Закуска</span>
+                  <button class="rating" type="button" data-rating-trigger data-product-id="cheese-sticks" data-base-rating="0" data-base-count="0" aria-label="Оценить товар" data-i18n-aria="rating.open">★</button>
+                </div>
+                <h3 data-i18n="product.cheeseSticks.name">Сырные палочки</h3>
+                <p data-i18n="product.cheeseSticks.description">Рецепт: сырные палочки в золотистой панировке, обжаренные до хруста и поданные с горячей маринарой.</p>
+                <div class="product-meta">
+                  <strong>280 сом</strong>
+                  <button class="add-to-cart" data-product-id="cheese-sticks" type="button" data-i18n="product.add">Добавить в корзину</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card product-card-featured product-card--drink" data-reveal="card">
+              <div class="product-image image-nineteen"></div>
+              <div class="product-body">
+                <div class="card-topline">
+                  <span class="tag" data-i18n="product.strawberryLemonade.tag">Лимонад</span>
+                  <button class="rating" type="button" data-rating-trigger data-product-id="strawberry-lemonade" data-base-rating="0" data-base-count="0" aria-label="Оценить товар" data-i18n-aria="rating.open">★</button>
+                </div>
+                <h3 data-i18n="product.strawberryLemonade.name">Клубничный лимонад</h3>
+                <p data-i18n="product.strawberryLemonade.description">Рецепт: клубника, лимон и лёд соединяются в лёгком, ярком и освежающем лимонаде.</p>
+                <div class="product-meta">
+                  <strong>260 сом</strong>
+                  <button class="add-to-cart" data-product-id="strawberry-lemonade" type="button" data-i18n="product.add">Добавить в корзину</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card product-card-featured product-card--drink" data-reveal="card">
+              <div class="product-image image-twenty"></div>
+              <div class="product-body">
+                <div class="card-topline">
+                  <span class="tag" data-i18n="product.peachTea.tag">Холодный чай</span>
+                  <button class="rating" type="button" data-rating-trigger data-product-id="peach-iced-tea" data-base-rating="0" data-base-count="0" aria-label="Оценить товар" data-i18n-aria="rating.open">★</button>
+                </div>
+                <h3 data-i18n="product.peachTea.name">Персиковый холодный чай</h3>
+                <p data-i18n="product.peachTea.description">Рецепт: охлаждённый чёрный чай, спелый персик, лимон и лёд — чистый свежий вкус.</p>
+                <div class="product-meta">
+                  <strong>240 сом</strong>
+                  <button class="add-to-cart" data-product-id="peach-iced-tea" type="button" data-i18n="product.add">Добавить в корзину</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card product-card-featured" data-reveal="card">
+              <div class="product-image image-twenty-one"></div>
+              <div class="product-body">
+                <div class="card-topline">
+                  <span class="tag" data-i18n="product.fireBeef.tag">Фирменный</span>
+                  <button class="rating" type="button" data-rating-trigger data-product-id="fire-beef-burger" data-base-rating="4.9" data-base-count="42" aria-label="Оценить товар" data-i18n-aria="rating.open">★ 4.9</button>
+                </div>
+                <h3 data-i18n="product.fireBeef.name">Fire Beef Burger</h3>
+                <p data-i18n="product.fireBeef.description">Рецепт: говядина на гриле, двойной чеддер, хрустящий лук и острый соус — мощный вкус в каждой детали.</p>
+                <div class="product-meta">
+                  <strong>650 сом</strong>
+                  <button class="add-to-cart" data-product-id="fire-beef-burger" type="button" data-i18n="product.add">Добавить в корзину</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card" data-reveal="card">
+              <div class="product-image image-twenty-two"></div>
+              <div class="product-body">
+                <div class="card-topline">
+                  <span class="tag" data-i18n="product.chickenBox.tag">Хрустящий</span>
+                  <button class="rating" type="button" data-rating-trigger data-product-id="crispy-chicken-box" data-base-rating="4.8" data-base-count="37" aria-label="Оценить товар" data-i18n-aria="rating.open">★ 4.8</button>
+                </div>
+                <h3 data-i18n="product.chickenBox.name">Crispy Chicken Box</h3>
+                <p data-i18n="product.chickenBox.description">Рецепт: хрустящие куриные полоски, золотистый фри, свежий салат и чесночный соус — большая порция без компромиссов.</p>
+                <div class="product-meta">
+                  <strong>590 сом</strong>
+                  <button class="add-to-cart" data-product-id="crispy-chicken-box" type="button" data-i18n="product.add">Добавить в корзину</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card product-card-featured product-card--drink" data-reveal="card">
+              <div class="product-image image-twenty-three"></div>
+              <div class="product-body">
+                <div class="card-topline">
+                  <span class="tag" data-i18n="product.berryPower.tag">Новинка</span>
+                  <button class="rating" type="button" data-rating-trigger data-product-id="berry-power" data-base-rating="5.0" data-base-count="28" aria-label="Оценить товар" data-i18n-aria="rating.open">★ 5.0</button>
+                </div>
+                <h3 data-i18n="product.berryPower.name">Berry Power</h3>
+                <p data-i18n="product.berryPower.description">Рецепт: сочные ягоды, лимон и лёд взбиваем в яркий освежающий напиток с насыщенным вкусом.</p>
+                <div class="product-meta">
+                  <strong>280 сом</strong>
+                  <button class="add-to-cart" data-product-id="berry-power" type="button" data-i18n="product.add">Добавить в корзину</button>
+                </div>
+              </div>
+            </article>
+
+            <div class="menu-category-heading menu-category-heading--drinks">
+              <span class="menu-category-number">02</span>
+              <h3 data-i18n="menu.drinksCategory">Напитки</h3>
+            </div>
+          </div>
+        </section>
+
+        <section class="features container" id="about">
+          <div class="section-heading left-align" data-reveal="heading">
+            <div>
+              <p class="eyebrow" data-i18n="features.eyebrow">Почему мы</p>
+              <h2 data-i18n="features.title">Готовим с удовольствием</h2>
+            </div>
+          </div>
+
+          <div class="feature-grid">
+            <article class="feature-item" data-reveal="card">
+              <div class="feature-icon">⚡</div>
+              <h3 data-i18n="features.fast.title">Быстрая доставка</h3>
+              <p data-i18n="features.fast.description">Свежая еда и быстрая доставка по городу в кратчайшие сроки.</p>
+            </article>
+
+            <article class="feature-item" data-reveal="card">
+              <div class="feature-icon">🥬</div>
+              <h3 data-i18n="features.fresh.title">Свежие продукты</h3>
+              <p data-i18n="features.fresh.description">Только качественные ингредиенты и ежедневная подготовка блюд.</p>
+            </article>
+
+            <article class="feature-item" data-reveal="card">
+              <div class="feature-icon">💳</div>
+              <h3 data-i18n="features.order.title">Удобный заказ</h3>
+              <p data-i18n="features.order.description">Простой заказ, быстрый расчёт и комфортная доставка до двери.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="promo container" id="offers">
+          <div class="promo-card" data-reveal="card">
+            <div class="promo-copy">
+              <p class="eyebrow" data-i18n="promo.eyebrow">Акция недели</p>
+              <h2 data-i18n="promo.title">Эң сүйүктүү эки тамак бир комбо!</h2>
+              <p data-i18n="promo.description">
+                Делюкс бургер жана сыр соусу кошулган фри — болгону 1599 сом.
+              </p>
+              <strong class="promo-price" data-i18n="promo.price">1599 сом</strong>
+              <button class="btn btn-primary" data-scroll-target="#menu" data-i18n="promo.button">Получить акцию</button>
+            </div>
+
+            <div class="promo-visual">
+              <div class="promo-platter" aria-label="Делюкс бургер жана сыр соусу кошулган фри" data-i18n-aria="promo.platterAria">
+                <figure class="promo-dish promo-dish--main">
+                  <img src="assets/img/photo-1568901346375-23c9450c58cd.webp" width="1000" height="1000" loading="lazy" alt="Ширелүү бургер" data-i18n-alt="image.promoBurger" />
+                  <figcaption class="promo-dish-badge" data-i18n="promo.combo">Делюкс бургер + сыр соусу кошулган фри</figcaption>
+                </figure>
+                <figure class="promo-dish promo-dish--side">
+                  <img src="assets/img/photo-1573080496219-bb080dd4f877.webp" width="700" height="700" loading="lazy" alt="Кытырак картошка фри" data-i18n-alt="image.fries" />
+                </figure>
+                <span class="promo-spark promo-spark--one" aria-hidden="true"></span>
+                <span class="promo-spark promo-spark--two" aria-hidden="true"></span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+
+      <div class="rating-overlay" id="rating-modal" hidden>
+        <section class="rating-dialog" role="dialog" aria-modal="true" aria-labelledby="rating-title" tabindex="-1">
+          <button class="rating-close" type="button" aria-label="Закрыть" data-i18n-aria="rating.close">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 6 12 12M18 6 6 18" /></svg>
+          </button>
+          <p class="eyebrow" data-i18n="rating.eyebrow">Отзывы</p>
+          <h2 id="rating-title" data-rating-product-name></h2>
+          <div class="rating-summary-detail" data-rating-summary></div>
+          <form class="rating-form" data-rating-form novalidate>
+            <label class="rating-label" data-i18n="rating.prompt">Оценить товар</label>
+            <div class="rating-picker" role="group" aria-label="Оценка от 1 до 5" data-i18n-aria="rating.starsLabel" data-rating-picker></div>
+            <p class="rating-selection" aria-live="polite" data-rating-selection></p>
+            <label class="rating-label" for="rating-comment" data-i18n="rating.comment">Комментарий</label>
+            <textarea id="rating-comment" name="comment" rows="3" maxlength="280" placeholder="Ваш комментарий…" data-i18n-placeholder="rating.commentPlaceholder"></textarea>
+            <span class="rating-character-count" data-rating-character-count>0 / 280</span>
+            <p class="rating-auth-note" data-rating-auth-note hidden></p>
+            <button class="rating-login" type="button" data-rating-login hidden data-i18n="rating.login">Войти, чтобы оценить</button>
+            <button class="rating-submit" type="submit" data-i18n="rating.submit">Отправить оценку</button>
+          </form>
+          <section class="rating-reviews" aria-labelledby="rating-reviews-title">
+            <h3 id="rating-reviews-title" data-i18n="rating.reviews">Отзывы</h3>
+            <div class="rating-review-list" data-rating-review-list aria-live="polite"></div>
+          </section>
+        </section>
+      </div>
+
+      <footer class="footer container" id="contact">
+        <div>
+          <div class="logo-wrap footer-logo">
+            <div class="logo-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false"><path class="logo-flame" d="M13.2 2.2c.5 3.1-.9 4.7-2.6 6.4-.7-1.2-1.5-2.2-2.7-2.8.2 2.8-2.3 4.5-2.3 8.1 0 4.2 2.9 7.2 6.9 7.2s7.1-3 7.1-7.1c0-3.7-2-6.4-5.1-8.8.2 1.8-.1 3.1-1.1 4.4-.4-2.2.2-4.8-.2-7.4Z"/><path class="logo-flame-core" d="M12.8 11.1c1.7 1.7 2.5 3.1 2.5 4.7 0 1.8-1.2 3.1-3 3.1s-3-1.3-3-3.1c0-1.2.8-2.2 1.8-3.4.3.6.7 1.1 1.2 1.6.4-.9.5-1.8.5-2.9Z"/></svg>
+            </div>
+            <span class="brand-name">FIREBITE <b class="brand-suffix">KG</b></span>
+            <span class="flag" aria-label="Кыргызстан" data-i18n-aria="country.name"></span>
+          </div>
+          <p data-i18n="footer.tagline">Быстрая еда для ярких впечатлений.</p>
+        </div>
+
+        <nav class="footer-social" aria-label="Социальные сети" data-i18n-aria="footer.socialTitle">
+          <p class="footer-social-title" data-i18n="footer.socialTitle">Мы в социальных сетях</p>
+          <div class="footer-links">
+            <a class="social-link social-link--instagram" href="https://www.instagram.com/maratbekkow/" target="_blank" rel="noopener noreferrer" aria-label="Instagram maratbekkow" data-i18n-aria="footer.instagram">
+              <span class="social-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.7" r="1" class="social-icon-dot"/></svg>
+              </span>
+              <span class="social-copy"><strong data-i18n="footer.instagramName">Instagram</strong><small>@maratbekkow</small></span>
+              <span class="social-arrow" aria-hidden="true">↗</span>
+            </a>
+            <a class="social-link social-link--tiktok" href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer" aria-label="TikTok" data-i18n-aria="footer.tiktok">
+              <span class="social-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false"><path d="M15.4 3h3.2c.2 1.7 1.2 3.1 2.8 3.8v3.1a8.7 8.7 0 0 1-2.8-1V15a5.7 5.7 0 1 1-5.7-5.7c.3 0 .7 0 1 .1v3.2a2.7 2.7 0 1 0 1.5 2.4V3Z"/></svg>
+              </span>
+              <span class="social-copy"><strong data-i18n="footer.tiktokName">TikTok</strong><small data-i18n="footer.tiktokDescription">Смотрите новинки</small></span>
+              <span class="social-arrow" aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </nav>
+
+        <div class="footer-contact">
+          <a class="footer-contact-item footer-contact-item--phone" href="tel:+996775272010">
+            <span class="footer-contact-label" data-i18n="footer.phoneLabel">Телефон</span>
+            <strong>+996 775 272 010</strong>
+          </a>
+          <a class="footer-contact-item" href="mailto:hello@fastfoodkg.com">
+            <span class="footer-contact-label" data-i18n="footer.emailLabel">Email</span>
+            <strong>hello@fastfoodkg.com</strong>
+          </a>
+        </div>
+      </footer>
+    </div>
+    <script type="module" src="burger-3d.js" onerror="document.querySelector('.burger-visual')?.classList.remove('is-3d-loading')"></script>
+  </body>
+</html>
+
